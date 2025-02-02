@@ -6,11 +6,12 @@ parser = argparse.ArgumentParser(prog='FAF manager', description='Менедже
 subparsers = parser.add_subparsers(help='Список команд')
 
 # команда для функции копирования файла copy_file
-copy_file_parser = subparsers.add_parser('copy_file', help='копирование файла')
-copy_file_parser.add_argument('src', help='исходный файл')
-copy_file_parser.add_argument('dst', help='конечный файл')
+copy_file_parser = subparsers.add_parser('copy', help='копирование файла')
+copy_file_parser.add_argument('src', help='путь к исходному файлу и имя файла')
+copy_file_parser.add_argument('dst', help='путь для копии файла и имя копии файла')
 copy_file_parser.set_defaults(func=functions.copy_file)
 
 args = parser.parse_args()
-if hasattr(args, "func"):
-    args.func(args)
+
+if copy_file_parser:
+    functions.copy_file(args.src, args.dst)

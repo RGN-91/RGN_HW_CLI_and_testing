@@ -2,6 +2,9 @@ import unittest
 import functions
 import pathlib
 import os
+import shutil
+import contextlib
+import io
 
 
 class TestFaF(unittest.TestCase):
@@ -30,3 +33,24 @@ class TestFaF(unittest.TestCase):
         functions.rm_file_or_folder('test_folder')
         self.assertFalse(os.path.exists(path_of_file))
         self.assertFalse(os.path.exists(path_of_folder))
+
+    def test_feature_3(self):
+        """тестирует функцию number_of_files для подсчета файлов в папке и во вложенных папках"""
+        os.mkdir('test_folder_2')
+        os.chdir('test_folder_2')
+        test_file_3 = open('test_3.txt', 'a+')
+        test_file_3.close()
+        test_file_4 = open('test_4.txt', 'a+')
+        test_file_4.close()
+        os.mkdir('test_folder_3')
+        os.chdir('test_folder_3')
+        test_file_5 = open('test_5.txt', 'a+')
+        test_file_5.close()
+        os.chdir('..')
+        os.chdir('..')
+        f = io.StringIO()
+        with contextlib.redirect_stdout(f):
+            functions.number_of_files('test_folder_2')
+        output = f.getvalue()
+        self.assertEqual(int(output), 3)
+        shutil.rmtree('test_folder_2')

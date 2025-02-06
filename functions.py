@@ -15,3 +15,8 @@ def rm_file_or_folder(fof):
         os.remove(fof)
     elif os.path.isdir(fof):
         shutil.rmtree(fof)
+
+
+def number_of_files(folder_path):
+    """Выводит общее количество файлов в папке и во вложенных папках"""
+    print(sum([len(files) for dp, dn, files in os.walk(folder_path)]))

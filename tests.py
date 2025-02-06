@@ -54,3 +54,34 @@ class TestFaF(unittest.TestCase):
         output = f.getvalue()
         self.assertEqual(int(output), 3)
         shutil.rmtree('test_folder_2')
+
+    def test_feature_4(self):
+        """
+        тестирует find_by_regex функцию, которая осуществляет поиск файлов
+        в папке и во вложенных папках с помощью регулярных выражений
+        """
+        os.mkdir('test_folder_4')
+        os.chdir('test_folder_4')
+        test_file_6 = open('123.txt', 'a+')
+        test_file_6.close()
+        test_file_7 = open('abc.txt', 'a+')
+        test_file_7.close()
+        os.mkdir('test_folder_5')
+        os.chdir('test_folder_5')
+        test_file_8 = open('def.txt', 'a+')
+        test_file_8.close()
+        test_file_9 = open('456.txt', 'a+')
+        test_file_9.close()
+        os.chdir('..')
+        os.chdir('..')
+        f = io.StringIO()
+        with contextlib.redirect_stdout(f):
+            functions.find_by_regex('test_folder_4', '[0-9]')
+        output_1 = f.getvalue().splitlines()
+        self.assertEqual(output_1, ["123.txt", "456.txt"])
+        f = io.StringIO()
+        with contextlib.redirect_stdout(f):
+            functions.find_by_regex('test_folder_4', '[a-z]')
+        output_2 = f.getvalue().splitlines()
+        self.assertEqual(output_2, ["abc.txt", "def.txt"])
+        shutil.rmtree('test_folder_4')

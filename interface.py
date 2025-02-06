@@ -18,6 +18,11 @@ rm_file_or_folder_parser.add_argument('fof', help='путь к файлу или
 number_of_files_parser = subparsers.add_parser('count', help='количество файлов в папке и папках папки')
 number_of_files_parser.add_argument('folder_path', help='путь к папке и имя папки')
 
+# команда для функции поиска файлов в папке и во вложенных папках по регулярному выражению number_of_files
+find_by_regex_parser = subparsers.add_parser('find', help='поиск файлов в папке по регулярному выражению')
+find_by_regex_parser.add_argument('folder_path', help='путь к папке и имя папки')
+find_by_regex_parser.add_argument('pattern', help='регулярное выражение')
+
 args = parser.parse_args()
 
 if args.command == 'copy':
@@ -26,3 +31,5 @@ elif args.command == 'delete':
     functions.rm_file_or_folder(args.fof)
 elif args.command == 'count':
     functions.number_of_files(args.folder_path)
+elif args.command == 'find':
+    functions.find_by_regex(args.folder_path, args.pattern)

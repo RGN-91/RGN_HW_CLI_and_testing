@@ -23,6 +23,18 @@ find_by_regex_parser = subparsers.add_parser('find', help='поиск файло
 find_by_regex_parser.add_argument('folder_path', help='путь к папке и имя папки')
 find_by_regex_parser.add_argument('pattern', help='регулярное выражение')
 
+# команда для функции добавления даты создания файла в название файла add_time_of_creation
+add_time_of_creation_parser = subparsers.add_parser('add_date',
+                                                    help='добавление даты создания файла в название файла')
+add_time_of_creation_parser.add_argument('fof', help='путь к папке или файлу')
+add_time_of_creation_parser.add_argument('--file', action='store_true',
+                                         help='добавление даты создания файла в название указанного файла')
+add_time_of_creation_parser.add_argument('--folder', action='store_true',
+                                         help='добавление даты создания файла во все файлы в указанной папке, '
+                                              'кроме файлов во вложенных папках ')
+add_time_of_creation_parser.add_argument('--recursive', action='store_true',
+                                         help='добавление даты создания файла в название файла '
+                                              'во все файлы в папке и в файлы во вложенных папках')
 args = parser.parse_args()
 
 if args.command == 'copy':
@@ -33,3 +45,10 @@ elif args.command == 'count':
     functions.number_of_files(args.folder_path)
 elif args.command == 'find':
     functions.find_by_regex(args.folder_path, args.pattern)
+elif args.command == 'add_date':
+    if args.file:
+        functions.add_time_of_creation_1(args.fof)
+    if args.folder:
+        functions.add_time_of_creation_2(args.fof)
+    if args.recursive:
+        functions.add_time_of_creation_3(args.fof)

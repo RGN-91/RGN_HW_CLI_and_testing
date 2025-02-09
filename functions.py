@@ -1,18 +1,26 @@
-import shutil
-import pathlib
 import os
+import shutil
 import re
 import datetime
 
 
 def copy_file(src, dst):
-    if pathlib.Path(src).exists():
+    """
+    Функция, которая копирует файл.
+    src - путь к файлу, который будет скопирован
+    dst - путь для копии файла
+    """
+    if os.path.isfile(src):
         shutil.copy(src, dst)
     else:
-        raise FileNotFoundError("Файл или папка не существует.")
+        raise FileNotFoundError("Указанный файл не существует.")
 
 
 def rm_file_or_folder(fof):
+    """
+    Функция, которая удаляет файл или папку.
+    fof - путь к файлу или к папке
+    """
     if os.path.isfile(fof):
         os.remove(fof)
     elif os.path.isdir(fof):
@@ -20,20 +28,37 @@ def rm_file_or_folder(fof):
 
 
 def number_of_files(folder_path):
-    """Выводит общее количество файлов в папке и во вложенных папках"""
-    print(sum([len(files) for dp, dn, files in os.walk(folder_path)]))
+    """
+    Функция, которая выводит общее количество файлов, которые находятся в папке и во вложенных папках.
+    folder_path - путь к папке
+    """
+    if os.path.isdir(folder_path):
+        print(sum([len(files) for dp, dn, files in os.walk(folder_path)]))
+    else:
+        raise NotADirectoryError("Указанная папка не существует.")
 
 
 def find_by_regex(folder_path, pattern):
-    regex = re.compile(pattern)
-    for dp, dn, files in os.walk(folder_path):
-        for file in files:
-            if regex.match(file):
-                print(file)
+    """
+    Функция, которая осуществляет поиск файла или файлов в папке по фильтру в виде регулярного выражения.
+    folder_path - путь к папке
+    pattern - регулярное выражение
+    """
+    if os.path.isdir(folder_path):
+        regex = re.compile(pattern)
+        for dp, dn, files in os.walk(folder_path):
+            for file in files:
+                if regex.match(file):
+                    print(file)
+    else:
+        raise NotADirectoryError("Указанная папка не существует.")
 
 
 def add_time_of_creation_1(fof):
-    """Функция, которая добавляет в название указанного файла дату его создания."""
+    """
+    Функция, которая добавляет в название указанного файла дату его создания.
+    fof - путь к файлу
+    """
     if os.path.isfile(fof):
         file_tc = os.path.getctime(fof)
         file_tc = datetime.date.fromtimestamp(file_tc)
@@ -50,6 +75,7 @@ def add_time_of_creation_2(fof):
     """
     Функция, которая добавляет в названия файлов в указанной папке дату создания файла,
     кроме файлов во вложенных папках.
+    fof - путь к папке
     """
     if os.path.isdir(fof):
         files_lst = [file for file in os.listdir(fof) if os.path.isfile(os.path.join(fof, file))]
@@ -69,6 +95,7 @@ def add_time_of_creation_3(fof):
     """
     Функция, которая добавляет в названия всех файлов в указанной папке дату создания файла,
     включая файлы во вложенных папках.
+    fof - путь к папке
     """
     if os.path.isdir(fof):
         for dp, dn, files in os.walk(fof):
@@ -89,6 +116,7 @@ def analysis_of_folder(fp):
     Функция, которая определяет и выводит название и полный размер папки,
     названия и размеры всех вложенных папок в папку,
     а также названия и размеры всех файлов внутри папки и вложенных папок.
+    fp - путь к папке
     """
 
     if os.path.isdir(fp):

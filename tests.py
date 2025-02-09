@@ -9,8 +9,11 @@ import datetime
 
 
 class TestFaF(unittest.TestCase):
-    # тестирование функции copy_file
     def test_feature_1(self):
+        """
+        Тестирует copy_file функцию на копирование файла и на возникновение ошибки,
+        если передан несуществующий файл.
+        """
         test_file_1 = open('test_1.txt', 'a+')
         test_file_1.close()
         functions.copy_file('test_1.txt', 'test_1_copy.txt')
@@ -23,6 +26,7 @@ class TestFaF(unittest.TestCase):
 
     # тестирование функции rm_file_or_folder
     def test_feature_2(self):
+        """Тестирует rm_file_or_folder функцию на удаление файла и папки."""
         test_file_2 = open('test_2.txt', 'a+')
         test_file_2.close()
         os.mkdir('test_folder')
@@ -36,7 +40,11 @@ class TestFaF(unittest.TestCase):
         self.assertFalse(os.path.exists(path_of_folder))
 
     def test_feature_3(self):
-        """тестирует функцию number_of_files для подсчета файлов в папке и во вложенных папках"""
+        """
+        Тестирует number_of_files функцию на следующее:
+        - вывод общего количества файлов, которые находятся в папке и во вложенных папках;
+        - возникновение ошибки, если передана несуществующая папка.
+        """
         os.mkdir('test_folder_2')
         os.chdir('test_folder_2')
         test_file_3 = open('test_3.txt', 'a+')
@@ -55,11 +63,14 @@ class TestFaF(unittest.TestCase):
         output = f.getvalue()
         self.assertEqual(int(output), 3)
         shutil.rmtree('test_folder_2')
+        with self.assertRaises(NotADirectoryError):
+            functions.number_of_files('test_folder_2')
 
     def test_feature_4(self):
         """
-        тестирует find_by_regex функцию, которая осуществляет поиск файлов
-        в папке и во вложенных папках с помощью регулярных выражений
+        Тестирует find_by_regex функцию на следующие случаи:
+        - поиск файлов в папке и во вложенных папках с помощью регулярных выражений;
+        - возникновение ошибки, если передана несуществующая папка.
         """
         os.mkdir('test_folder_4')
         os.chdir('test_folder_4')
@@ -86,6 +97,8 @@ class TestFaF(unittest.TestCase):
         output_2 = f.getvalue().splitlines()
         self.assertEqual(output_2, ["abc.txt", "def.txt"])
         shutil.rmtree('test_folder_4')
+        with self.assertRaises(NotADirectoryError):
+            functions.find_by_regex('test_folder_4', '[a-z]')
 
     def test_feature_5a(self):
         """

@@ -35,6 +35,12 @@ add_time_of_creation_parser.add_argument('--folder', action='store_true',
 add_time_of_creation_parser.add_argument('--recursive', action='store_true',
                                          help='добавление даты создания файла в название файла '
                                               'во все файлы в папке и в файлы во вложенных папках')
+
+# команда для функции analysis_of_folder
+analysis_of_folder_parser = subparsers.add_parser('analysis',
+                                                    help='Анализ всех вложенных папок и всех файлов внутри папки')
+analysis_of_folder_parser.add_argument('fp', help='путь к папке')
+
 args = parser.parse_args()
 
 if args.command == 'copy':
@@ -52,3 +58,5 @@ elif args.command == 'add_date':
         functions.add_time_of_creation_2(args.fof)
     if args.recursive:
         functions.add_time_of_creation_3(args.fof)
+elif args.command == 'analysis':
+    functions.analysis_of_folder(args.fp)

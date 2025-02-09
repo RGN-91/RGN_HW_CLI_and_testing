@@ -82,3 +82,60 @@ def add_time_of_creation_3(fof):
                 os.replace(os.path.join(dp, file), os.path.join(dp, file_name + " " + file_tc + "." + file_ext))
     else:
         raise NotADirectoryError("Указанная папка не существует.")
+
+
+def analysis_of_folder(fp):
+    """
+    Функция, которая определяет и выводит название и полный размер папки,
+    названия и размеры всех вложенных папок в папку,
+    а также названия и размеры всех файлов внутри папки и вложенных папок.
+    """
+
+    if os.path.isdir(fp):
+        # Определение полного размера папки
+        full_size = 0
+        for dp, drn, fn in os.walk(fp):
+            for file in fn:
+                full_size += os.path.getsize(os.path.join(dp, file))
+        if 1024 ** 4 > full_size >= 1024 ** 3:
+            print(f'Полный размер папки {os.path.basename(fp)}: {full_size / 1024 ** 3:.1f} Гб')
+        elif 1024 ** 3 > full_size >= 1024 ** 2:
+            print(f'Полный размер папки {os.path.basename(fp)}: {full_size / 1024 ** 2:.1f} Мб')
+        elif 1024 ** 2 > full_size >= 1024:
+            print(f'Полный размер папки {os.path.basename(fp)}: {full_size / 1024:.1f} Кб')
+        else:
+            print(f'Полный размер папки {os.path.basename(fp)}: {full_size} байт')
+        # Вложенные папки и определение их размеров
+        fsf_lst = [x[0] for x in os.walk(fp)]
+        # удаляем основную папку из списка
+        del fsf_lst[0]
+        print("- Вложенные папки и их размеры:")
+        for folder in fsf_lst:
+            fld_size = 0
+            for dp, drn, fn in os.walk(folder):
+                for file in fn:
+                    fld_size += os.path.getsize(os.path.join(dp, file))
+            if 1024 ** 4 > fld_size >= 1024 ** 3:
+                print(f'{os.path.basename(folder.rsplit("/")[-1])} {fld_size / 1024 ** 3:.1f} Гб')
+            elif 1024 ** 3 > fld_size >= 1024 ** 2:
+                print(f'{os.path.basename(folder.rsplit("/")[-1])} {fld_size / 1024 ** 2:.1f} Мб')
+            elif 1024 ** 2 > fld_size >= 1024:
+                print(f'{os.path.basename(folder.rsplit("/")[-1])} {fld_size / 1024:.1f} Кб')
+            else:
+                print(f'{os.path.basename(folder.rsplit("/")[-1])} {fld_size} байт')
+        # Файлы в папке и во вложенных папках и определение размеров файлов
+        print("-- Файлы в папке и во вложенных папках и размеры файлов:")
+        for dp, drn, fn in os.walk(fp):
+            for file in fn:
+                file_size = 0
+                file_size += os.path.getsize(os.path.join(dp, file))
+                if 1024 ** 4 > file_size >= 1024 ** 3:
+                    print(f'{file} {file_size / 1024 ** 3:.1f} Гб')
+                elif 1024 ** 3 > file_size >= 1024 ** 2:
+                    print(f'{file} {file_size / 1024 ** 2:.1f} Мб')
+                elif 1024 ** 2 > file_size >= 1024:
+                    print(f'{file} {file_size / 1024:.1f} Кб')
+                else:
+                    print(f'{file} {file_size} байт')
+    else:
+        raise NotADirectoryError("Указанная папка не существует.")

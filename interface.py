@@ -10,26 +10,27 @@ subparsers = parser.add_subparsers(dest='command', help='Список коман
 
 # команда для функции копирования файла copy_file
 copy_file_parser = subparsers.add_parser('copy', help='копирование файла')
-copy_file_parser.add_argument('src', help='путь к файлу')
-copy_file_parser.add_argument('dst', help='путь для копии файла')
+copy_file_parser.add_argument('src', help='путь к файлу и имя файла')
+copy_file_parser.add_argument('dst', help='путь для копии файла и имя копии файла')
 
 # команда для функции удаления файла или папки rm_file_or_folder
 rm_file_or_folder_parser = subparsers.add_parser('delete', help='удаление файла или папки')
-rm_file_or_folder_parser.add_argument('fof', help='путь к файлу или к папке')
+rm_file_or_folder_parser.add_argument('fof', help='путь к файлу и имя файла или путь к папке и имя папки')
 
 # команда для функции подсчета количества файлов в папке и во вложенных папках при их наличии number_of_files
 number_of_files_parser = subparsers.add_parser('count', help='количество файлов в папке и папках папки')
-number_of_files_parser.add_argument('folder_path', help='путь к папке')
+number_of_files_parser.add_argument('folder_path', help='путь к папке и имя папки')
 
 # команда для функции поиска файлов в папке и во вложенных папках по регулярному выражению number_of_files
 find_by_regex_parser = subparsers.add_parser('find', help='поиск файлов в папке по регулярному выражению')
-find_by_regex_parser.add_argument('folder_path', help='путь к папке')
+find_by_regex_parser.add_argument('folder_path', help='путь к папке и имя папки')
 find_by_regex_parser.add_argument('pattern', help='регулярное выражение')
 
 # команда и ключи для функций добавления даты создания файла в название файла add_time_of_creation
 add_time_of_creation_parser = subparsers.add_parser('add_date',
                                                     help='добавление даты создания файла в название файла')
-add_time_of_creation_parser.add_argument('fof', help='путь к папке или файлу')
+add_time_of_creation_parser.add_argument('fof', help='путь к файлу и имя файла '
+                                                     'или путь к папке и имя папки')
 add_time_of_creation_parser.add_argument('--file', action='store_true',
                                          help='добавление даты создания файла в название указанного файла')
 add_time_of_creation_parser.add_argument('--folder', action='store_true',
@@ -42,7 +43,7 @@ add_time_of_creation_parser.add_argument('--recursive', action='store_true',
 # команда для функции analysis_of_folder
 analysis_of_folder_parser = subparsers.add_parser('analysis',
                                                   help='анализ всех вложенных папок и всех файлов внутри папки')
-analysis_of_folder_parser.add_argument('fp', help='путь к папке')
+analysis_of_folder_parser.add_argument('fp', help='путь к папке и имя папки')
 
 args = parser.parse_args()
 

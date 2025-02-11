@@ -7,8 +7,8 @@ import datetime
 def copy_file(src, dst):
     """
     Функция, которая копирует файл.
-    src - путь к файлу, который будет скопирован
-    dst - путь для копии файла
+    src - путь к файлу и имя файла, который будет скопирован
+    dst - путь для копии файла и имя копии файла
     """
     if os.path.isfile(src):
         shutil.copy(src, dst)
@@ -19,7 +19,7 @@ def copy_file(src, dst):
 def rm_file_or_folder(fof):
     """
     Функция, которая удаляет файл или папку.
-    fof - путь к файлу или к папке
+    fof - путь к файлу и имя файла или путь к папке и имя папки
     """
     if os.path.isfile(fof):
         os.remove(fof)
@@ -30,7 +30,7 @@ def rm_file_or_folder(fof):
 def number_of_files(folder_path):
     """
     Функция, которая выводит общее количество файлов, которые находятся в папке и во вложенных папках.
-    folder_path - путь к папке
+    folder_path - путь к папке и имя папки
     """
     if os.path.isdir(folder_path):
         print(sum([len(files) for dp, dn, files in os.walk(folder_path)]))
@@ -41,7 +41,7 @@ def number_of_files(folder_path):
 def find_by_regex(folder_path, pattern):
     """
     Функция, которая осуществляет поиск файла или файлов в папке по фильтру в виде регулярного выражения.
-    folder_path - путь к папке
+    folder_path - путь к папке и имя папки
     pattern - регулярное выражение
     """
     if os.path.isdir(folder_path):
@@ -57,7 +57,7 @@ def find_by_regex(folder_path, pattern):
 def add_time_of_creation_1(fof):
     """
     Функция, которая добавляет в название указанного файла дату его создания.
-    fof - путь к файлу
+    fof - путь к файлу и имя файла
     """
     if os.path.isfile(fof):
         file_tc = os.path.getctime(fof)
@@ -75,7 +75,7 @@ def add_time_of_creation_2(fof):
     """
     Функция, которая добавляет в названия файлов в указанной папке дату создания файла,
     кроме файлов во вложенных папках.
-    fof - путь к папке
+    fof - путь к папке и имя папки
     """
     if os.path.isdir(fof):
         files_lst = [file for file in os.listdir(fof) if os.path.isfile(os.path.join(fof, file))]
@@ -95,7 +95,7 @@ def add_time_of_creation_3(fof):
     """
     Функция, которая добавляет в названия всех файлов в указанной папке дату создания файла,
     включая файлы во вложенных папках.
-    fof - путь к папке
+    fof - путь к папке и имя папки
     """
     if os.path.isdir(fof):
         for dp, dn, files in os.walk(fof):
@@ -116,7 +116,7 @@ def analysis_of_folder(fp):
     Функция, которая определяет и выводит название и полный размер папки,
     названия и размеры всех вложенных папок в папку,
     а также названия и размеры всех файлов внутри папки и вложенных папок.
-    fp - путь к папке
+    fp - путь к папке и имя папки
     """
 
     if os.path.isdir(fp):

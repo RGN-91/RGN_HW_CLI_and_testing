@@ -38,36 +38,56 @@ sys.stderr = OutputRedirector(output_text)
 
 
 # функции-команды для кнопок
+# команда для кнопки "Добавить дату создания"
 def add_toc():
+    """
+    Функция создает окно с кнопками для вызова функций, которые добавляют дату создания в имя выбранного файла
+    или в имена файлов в выбранной папке.
+    """
     add_toc_window = tk.Toplevel()
     add_toc_window.title("Добавление даты создания в название файла или файлов")
     add_toc_window.geometry("500x200")
     add_to_file_btn = ttk.Button(add_toc_window, text="Добавить в выбранный файл", command=lambda: add_toc_1())
-    add_to_file_btn.place(relx=0.29, rely=0.2, relwidth=0.42, relheight=0.2)
-    add_to_files_btn = ttk.Button(add_toc_window, text="Добавить в файлы папки\n(кроме файлов вложенных папок)",
+    add_to_file_btn.place(relx=0.1, rely=0.2, relwidth=0.8, relheight=0.2)
+    add_to_files_btn = ttk.Button(add_toc_window, text="Добавить в файлы папки, кроме файлов вложенных папок",
                                   command=lambda: add_toc_2())
-    add_to_files_btn.place(relx=0.29, rely=0.4, relwidth=0.42, relheight=0.2)
+    add_to_files_btn.place(relx=0.1, rely=0.4, relwidth=0.8, relheight=0.2)
     add_to_all_files_btn = ttk.Button(add_toc_window,
-                                      text="Добавить во все файлы папки\n(включая файлы вложенных папок)",
+                                      text="Добавить в файлы папки, включая файлы вложенных папок",
                                       command=lambda: add_toc_3())
-    add_to_all_files_btn.place(relx=0.29, rely=0.6, relwidth=0.42, relheight=0.2)
+    add_to_all_files_btn.place(relx=0.1, rely=0.6, relwidth=0.8, relheight=0.2)
 
 
+# команда для кнопки "Добавить в выбранный файл"
 def add_toc_1():
+    """
+    Функция вызывает диалоговое окно для выбора файла и в случае выбора файла
+    вызывает функцию для добавления даты создания файла в имя выбранного файла.
+    """
     fof_path = filedialog.askopenfilename(title="Выберите файл")
     if fof_path:
         functions.add_time_of_creation_1(fof_path)
         print(f"Дата создания добавлена в название указанного файла:\n{fof_path}")
 
 
+# команда для кнопки "Добавить в файлы папки (кроме файлов вложенных папок)"
 def add_toc_2():
+    """
+    Функция вызывает диалоговое окно для выбора папки и в случае выбора папки вызывает функцию
+    для добавления даты создания файлов в имя файлов, которые находятся в папке, кроме файлов во вложенных папках.
+    """
     fof_path = filedialog.askdirectory(title="Выберите папку")
     if fof_path:
         functions.add_time_of_creation_2(fof_path)
         print(f"Дата создания добавлена в названия файлов указанной папки:\n{fof_path}")
 
 
+# команда для кнопки "Добавить в файлы папки (включая файлы вложенных папок)"
 def add_toc_3():
+    """
+    Функция вызывает диалоговое окно для выбора папки и в случае выбора папки вызывает функцию
+    для добавления даты создания файлов в имя файлов, которые находятся в папке, включая файлы во вложенных папках.
+    """
     fof_path = filedialog.askdirectory(title="Выберите папку")
     if fof_path:
         functions.add_time_of_creation_3(fof_path)
@@ -76,6 +96,10 @@ def add_toc_3():
 
 # команда для кнопки "Анализ папки"
 def analysis():
+    """
+    Функция вызывает диалоговое окно для выбора папки, которую необходимо проанализировать.
+    В случае выбора папки вызывает функцию для анализа папки.
+    """
     folder_path = filedialog.askdirectory(title="Выберите папку для анализа")
     if folder_path:
         functions.analysis_of_folder(folder_path)
@@ -83,6 +107,11 @@ def analysis():
 
 # команда для кнопки "Копировать файл"
 def copy_f():
+    """
+    Функция, которая вызывает диалоговое окно для выбора файла, который будет скопирован.
+    В случае выбора файла вызывает диалоговое окно для выбора пути копии файла, выбора имени и типа файла.
+    Если пути для оригинала и копии файла указаны, вызывается функция для копирования файла.
+    """
     src_path = filedialog.askopenfilename(title="Выберите файл для копирования")
     if src_path:
         dst_path = filedialog.asksaveasfilename(title="Выберите путь для копии файла, введите имя и тип файла")
@@ -93,6 +122,10 @@ def copy_f():
 
 # команда для кнопки "Поиск файлов"
 def find_by_reg():
+    """
+    Функция вызывает диалоговое окно для выбора папки, в которой будет осуществляться поиск файлов.
+    В случае выбора папки вызывает функцию для поиска файлов в папке с помощью регулярных выражений.
+    """
     folder_path = filedialog.askdirectory(title="Выберите папку для поиска файлов")
     if folder_path:
         find_by_reg_window = tk.Toplevel()
@@ -109,6 +142,10 @@ def find_by_reg():
 
 # команда для кнопки "Количество файлов"
 def nof():
+    """
+    Функция вызывает диалоговое окно для выбора папки, в которой будет производиться подсчет файлов.
+    В случае выбора папки вызывает функцию для подлсчета количества файлов в ней.
+    """
     folder_path = filedialog.askdirectory(title="Выберите папку для подсчета количества файлов в ней")
     if folder_path:
         functions.number_of_files(folder_path)
@@ -116,6 +153,7 @@ def nof():
 
 # команда для кнопки "Удалить"
 def remove_fof():
+    """Функция создает окно с кнопками для вызова функции, которая удаляет или файл, или папку."""
     rm_window = tk.Toplevel()
     rm_window.title("Удаление файла или папки")
     rm_window.geometry("350x100")
@@ -126,14 +164,22 @@ def remove_fof():
 
 
 def remove_file():
-    fof_path = filedialog.askopenfilename(title="Выберите файл")
+    """
+    Функция открывает диалоговое окно для выбора файла, который необходимо удалить.
+    В случае выбора файла вызывает функцию, которая удаляет файл.
+    """
+    fof_path = filedialog.askopenfilename(title="Выберите файл для удаления")
     if fof_path:
         functions.rm_file_or_folder(fof_path)
         print(f"Файл по указанному пути:\n{fof_path}\nудален")
 
 
 def remove_folder():
-    fof_path = filedialog.askdirectory(title="Выберите папку")
+    """
+    Функция открывает диалоговое окно для выбора папки, которую необходимо удалить.
+    В случае выбора папки вызывает функцию, которая удаляет папку.
+    """
+    fof_path = filedialog.askdirectory(title="Выберите папку для удаления")
     if fof_path:
         functions.rm_file_or_folder(fof_path)
         print(f"Папка по указанному пути:\n{fof_path}\nудалена")

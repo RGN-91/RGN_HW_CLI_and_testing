@@ -19,6 +19,7 @@ class OutputRedirector:
     def write(self, message):
         self.text_widget.insert(tk.END, message)
         self.text_widget.see(tk.END)
+        self.text_widget.update()
 
     def flush(self):
         pass
@@ -45,7 +46,7 @@ def add_toc():
     или в имена файлов в выбранной папке.
     """
     add_toc_window = tk.Toplevel()
-    add_toc_window.title("Добавление даты создания в название файла или файлов")
+    add_toc_window.title("Добавление даты создания в название файла")
     add_toc_window.geometry("500x200")
     add_to_file_btn = ttk.Button(add_toc_window, text="Добавить в выбранный файл", command=lambda: add_toc_1())
     add_to_file_btn.place(relx=0.1, rely=0.2, relwidth=0.8, relheight=0.2)
@@ -146,8 +147,9 @@ def nof():
     Функция вызывает диалоговое окно для выбора папки, в которой будет производиться подсчет файлов.
     В случае выбора папки вызывает функцию для подлсчета количества файлов в ней.
     """
-    folder_path = filedialog.askdirectory(title="Выберите папку для подсчета количества файлов в ней")
+    folder_path = filedialog.askdirectory(title="Выберите папку для подсчета количества файлов")
     if folder_path:
+        print(f"Количество файлов в папке по указанному пути:\n{folder_path}")
         functions.number_of_files(folder_path)
 
 

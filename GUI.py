@@ -194,22 +194,22 @@ exit_btn = ttk.Button(text="Выход", command=manager_window.destroy)
 exit_btn.place(relx=0.99, rely=0.99, anchor=tk.SE)
 # кнопка для вызова функции analysis_of_folder
 analysis_btn = ttk.Button(text="Анализ папки", command=lambda: analysis())
-analysis_btn.place(relx=0.359, rely=0.61, relwidth=0.282)
+analysis_btn.place(relx=0.359, rely=0.61, relwidth=0.284)
 # кнопка для вызова группы функций add_time_of_creation
 add_date_of_creation_btn = ttk.Button(text="Добавить дату создания", command=lambda: add_toc())
-add_date_of_creation_btn.place(relx=0.359, rely=0.66, relwidth=0.282)
+add_date_of_creation_btn.place(relx=0.359, rely=0.66, relwidth=0.284)
 # кнопка для вызова функции number_of_files
 nof_btn = ttk.Button(text="Количество файлов", command=lambda: nof())
-nof_btn.place(relx=0.359, rely=0.71, relwidth=0.282)
+nof_btn.place(relx=0.359, rely=0.71, relwidth=0.284)
 # кнопка для вызова функции copy_file
 copy_btn = ttk.Button(text="Копировать файл", command=lambda: copy_f())
-copy_btn.place(relx=0.359, rely=0.76, relwidth=0.282)
+copy_btn.place(relx=0.359, rely=0.76, relwidth=0.284)
 # кнопка для вызова функции find_by_regex
 find_by_regex_btn = ttk.Button(text="Поиск файлов", command=lambda: find_by_reg())
-find_by_regex_btn.place(relx=0.359, rely=0.81, relwidth=0.282)
+find_by_regex_btn.place(relx=0.359, rely=0.81, relwidth=0.284)
 # кнопка для вызова функции rm_file_or_folder
 remove_btn = ttk.Button(text="Удалить", command=lambda: remove_fof())
-remove_btn.place(relx=0.359, rely=0.86, relwidth=0.282)
+remove_btn.place(relx=0.359, rely=0.86, relwidth=0.284)
 
 manager_window.mainloop()
 
